@@ -12,7 +12,7 @@ app.use(morgan('dev')); // log requests to the console
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port     = process.env.PORT || 9000; // set our port
+var port     = process.env.PORT || 3000; // set our port
 
 // ROUTES FOR OUR API
 // create our router
@@ -50,7 +50,12 @@ router.route('/titanic')
 		PythonShell.run('script.py', options, function (err, results) {
 		  if (err) throw err;
 		  // results is an array consisting of messages collected during execution
-		  res.json({ message : results[0] })
+		  if (results[0]=="[0]"){
+		  	res.json({ message : 'Dead !' });
+		  }
+		  else {
+		  	res.json({ message : 'Survived !' });
+		  }
 		});
 		
 
